@@ -80,12 +80,12 @@ const App = () => {
           { transform: animation.getTranslateTransform() },
         ]}
       >
-        <Icon name="emoticon-happy" size={100} color="#4CAF50" />
+        <Icon name="emoticon-happy" size={100} color="gray" />
       </Animated.View>
 
       {/* 初期画面*/}
       {!thinkFlag && !addFlag && (
-        <View className="ml-10 mt-10 flex flex-wrap flex-row">
+        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/3">
           {members.map((member, index) => (
             <View
               key={index}
@@ -107,53 +107,113 @@ const App = () => {
           ))}
         </View>
       )}
-      <View className="flex-1 justify-center items-center mt-40">
-        {!thinkFlag && !isMoving ? (
+      {!thinkFlag && !addFlag && !isMoving && (
+        <View className="flex-1 justify-center items-center mt-40">
           <>
-            <Button title="add member" onPress={addMember} />
-            <Button title="think game" onPress={moveToThinking} />
+            <TouchableOpacity
+              className="bg-gray-800 rounded-lg p-2 m-2"
+              onPress={addMember}
+            >
+              <Text className="text-white font-bold">飲みメンバー追加</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="bg-gray-800 rounded-lg p-2 m-2"
+              onPress={moveToThinking}
+            >
+              <Text className="text-white font-bold">ゲームを考えて</Text>
+            </TouchableOpacity>
           </>
-        ) : null}
-      </View>
+        </View>
+      )}
 
       {/* think画面(ゲームを考案させる) */}
-      {thinkFlag && !isMoving ? (
+      {thinkFlag && (
+        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/3">
+          {members.map((member, index) => (
+            <View
+              key={index}
+              className={`p-2 mb-1 w-[30%] ${
+                index % 3 === 2 ? "" : "mr-[3.33%]"
+              } items-center ${
+                member.gender === "男" ? "bg-blue-500" : "bg-pink-500"
+              }`}
+            >
+              <Text
+                className="text-white font-bold "
+                onPress={() => {
+                  setMembers(members.filter((_, i) => i !== index));
+                }}
+              >
+                {member.name}
+              </Text>
+            </View>
+          ))}
+        </View>
+      )}
+      {thinkFlag && !isMoving && (
         <View>
-          <View className="mb-96">
-            <View>
-              <Text className="text-xl ml-10 font-bold">＃メンバー</Text>
-              <Text className="text-lg ml-10">
-                {members.map((member, index) => (
-                  <Text key={index}>
-                    {member.name} ({member.gender}){" "}
-                  </Text>
-                ))}
-              </Text>
-            </View>
-            <View>
-              <Text className="ml-10 mt-20 text-xl font-bold">
-                ＃要望 　　※もしあれば！
-              </Text>
-              <TextInput
-                className="h-10 border border-gray-400 mx-4 my-2 p-2 bg-white shadow-lg"
-                placeholder="とにかく盛り上がるやつ"
-                placeholderTextColor="#999"
-              />
-            </View>
-            <View className="mt-72">
-              <Button title="戻る" onPress={resetIcon} />
-            </View>
+          <View>
+            <Text className="ml-10 text-xl font-bold">
+              ゲームの要望はあるかい？
+            </Text>
+            <TextInput
+              className="mt-5 h-36 border border-gray-400 p-2 mx-4 bg-white shadow-lg rounded-lg"
+              placeholder="無ければ空白でOK!"
+              placeholderTextColor="#999"
+            />
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              top: 380,
+              left: 0,
+              right: 0,
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              className="bg-gray-800 rounded-lg p-2 m-2"
+              onPress={resetIcon}
+            >
+              <Text className="text-white font-bold text-center">戻る</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      ) : null}
+      )}
 
       {/* add画面(メンバーを追加する) */}
-      {addFlag && !isMoving ? (
+      {addFlag && (
+        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/3">
+          {members.map((member, index) => (
+            <View
+              key={index}
+              className={`p-2 mb-1 w-[30%] ${
+                index % 3 === 2 ? "" : "mr-[3.33%]"
+              } items-center ${
+                member.gender === "男" ? "bg-blue-500" : "bg-pink-500"
+              }`}
+            >
+              <Text
+                className="text-white font-bold "
+                onPress={() => {
+                  setMembers(members.filter((_, i) => i !== index));
+                }}
+              >
+                {member.name}
+              </Text>
+            </View>
+          ))}
+        </View>
+      )}
+      {addFlag && !isMoving && (
         <View>
-          <View className="mb-96">
-            <View>
+          <View>
+            <Text className="ml-10 text-xl font-bold">
+              メンバーの名前と性別はなんだい？
+            </Text>
+            <View className="mt-5">
               <TextInput
-                className="h-10 border border-gray-400 mx-4 my-2 p-2 bg-white shadow-lg"
+                className="h-10 border border-gray-400 mx-4 my-2 p-2 bg-white shadow-lg rounded-full"
                 placeholder="名前"
                 placeholderTextColor="#999"
                 value={newMemberName}
@@ -190,13 +250,26 @@ const App = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <Button title="保存" onPress={setMember} />
-            <View className="mt-80">
-              <Button title="戻る" onPress={resetIcon} />
+            <View className="items-center">
+              <TouchableOpacity
+                className="bg-black rounded-lg p-2 m-2"
+                onPress={setMember}
+                disabled={!newMemberName.trim()}
+              >
+                <Text className="text-white font-bold">追加</Text>
+              </TouchableOpacity>
             </View>
           </View>
+          <View className="absolute top-96 left-0 right-0 items-center">
+            <TouchableOpacity
+              className="bg-black rounded-lg p-2 m-2"
+              onPress={resetIcon}
+            >
+              <Text className="text-white font-bold">戻る</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      ) : null}
+      )}
     </SafeAreaView>
   );
 };

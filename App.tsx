@@ -13,8 +13,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const App = () => {
   const [animation] = useState(new Animated.ValueXY({ x: 145, y: 360 }));
-  const [flagThink, setflagThink] = useState(false);
-  const [flagAdd, setflagAdd] = useState(false);
+  const [thinkFlag, setthinkFlag] = useState(false);
+  const [addFlag, setaddFlag] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [members, setMembers] = useState([]);
   const [newMemberName, setNewMemberName] = useState("");
@@ -26,7 +26,7 @@ const App = () => {
       duration: 350,
       useNativeDriver: true,
     }).start(() => {
-      setflagThink(true);
+      setthinkFlag(true);
       setIsMoving(false);
     });
   };
@@ -38,8 +38,8 @@ const App = () => {
       duration: 350,
       useNativeDriver: true,
     }).start(() => {
-      setflagThink(false);
-      setflagAdd(false);
+      setthinkFlag(false);
+      setaddFlag(false);
       setIsMoving(false);
     });
   };
@@ -51,7 +51,7 @@ const App = () => {
       duration: 350,
       useNativeDriver: true,
     }).start(() => {
-      setflagAdd(true);
+      setaddFlag(true);
       setIsMoving(false);
     });
   };
@@ -60,25 +60,13 @@ const App = () => {
     setMembers([...members, { name: newMemberName, gender: newMemberGender }]);
     setNewMemberName("");
     setNewMemberGender("");
-    setflagAdd(false);
+    setaddFlag(false);
     Animated.timing(animation, {
       toValue: { x: 145, y: 360 },
       duration: 350,
       useNativeDriver: true,
     }).start(() => {
-      setflagThink(false);
-      setIsMoving(false);
-    });
-  };
-
-  const closeAddMember = () => {
-    setflagAdd(false);
-    Animated.timing(animation, {
-      toValue: { x: 145, y: 360 },
-      duration: 350,
-      useNativeDriver: true,
-    }).start(() => {
-      setflagThink(false);
+      setthinkFlag(false);
       setIsMoving(false);
     });
   };
@@ -96,7 +84,7 @@ const App = () => {
       </Animated.View>
 
       {/* 初期画面*/}
-      {!flagThink && !flagAdd && (
+      {!thinkFlag && !addFlag && (
         <View className="ml-10 mt-10 flex flex-wrap flex-row">
           {members.map((member, index) => (
             <View
@@ -120,7 +108,7 @@ const App = () => {
         </View>
       )}
       <View className="flex-1 justify-center items-center mt-40">
-        {!flagThink && !isMoving ? (
+        {!thinkFlag && !isMoving ? (
           <>
             <Button title="add member" onPress={addMember} />
             <Button title="think game" onPress={moveToThinking} />
@@ -129,7 +117,7 @@ const App = () => {
       </View>
 
       {/* think画面(ゲームを考案させる) */}
-      {flagThink && !isMoving ? (
+      {thinkFlag && !isMoving ? (
         <View>
           <View className="mb-96">
             <View>
@@ -147,8 +135,9 @@ const App = () => {
                 ＃要望 　　※もしあれば！
               </Text>
               <TextInput
-                className="h-10 border border-gray-400 mx-4 my-2 p-10 bg-white shadow-lg"
+                className="h-10 border border-gray-400 mx-4 my-2 p-2 bg-white shadow-lg"
                 placeholder="とにかく盛り上がるやつ"
+                placeholderTextColor="#999"
               />
             </View>
             <View className="mt-72">
@@ -159,13 +148,14 @@ const App = () => {
       ) : null}
 
       {/* add画面(メンバーを追加する) */}
-      {flagAdd && !isMoving ? (
+      {addFlag && !isMoving ? (
         <View>
           <View className="mb-96">
             <View>
               <TextInput
-                className="h-10 border border-gray-400 mx-4 my-2 p-10 bg-white shadow-lg"
+                className="h-10 border border-gray-400 mx-4 my-2 p-2 bg-white shadow-lg"
                 placeholder="名前"
+                placeholderTextColor="#999"
                 value={newMemberName}
                 onChangeText={setNewMemberName}
               />

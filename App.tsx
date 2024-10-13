@@ -21,6 +21,7 @@ const App = () => {
   const [newMemberGender, setNewMemberGender] = useState("");
 
   const moveToThinking = () => {
+    setIsMoving(true);
     Animated.timing(animation, {
       toValue: { x: 30, y: 700 },
       duration: 350,
@@ -85,7 +86,7 @@ const App = () => {
 
       {/* 初期画面*/}
       {!thinkFlag && !addFlag && (
-        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/3">
+        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/4">
           {members.map((member, index) => (
             <View
               key={index}
@@ -128,7 +129,7 @@ const App = () => {
 
       {/* think画面(ゲームを考案させる) */}
       {thinkFlag && (
-        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/3">
+        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/4">
           {members.map((member, index) => (
             <View
               key={index}
@@ -165,7 +166,7 @@ const App = () => {
           <View
             style={{
               position: "absolute",
-              top: 380,
+              top: 438,
               left: 0,
               right: 0,
               alignItems: "center",
@@ -183,7 +184,7 @@ const App = () => {
 
       {/* add画面(メンバーを追加する) */}
       {addFlag && (
-        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/3">
+        <View className="ml-4 mt-10 flex flex-wrap flex-row h-1/4">
           {members.map((member, index) => (
             <View
               key={index}
@@ -260,7 +261,15 @@ const App = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <View className="absolute top-96 left-0 right-0 items-center">
+          <View
+            style={{
+              position: "absolute",
+              top: 438,
+              left: 0,
+              right: 0,
+              alignItems: "center",
+            }}
+          >
             <TouchableOpacity
               className="bg-black rounded-lg p-2 m-2"
               onPress={resetIcon}

@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import thinkGame from "../lib/thinkGame";
+import HandleThinkGameButton from "./HandleThinkGameButton";
 
 const HomeScreen = ({ navigation, route }) => {
   const [animation] = useState(new Animated.ValueXY({ x: 145, y: 400 }));
@@ -83,24 +83,6 @@ const HomeScreen = ({ navigation, route }) => {
       setthinkFlag(false);
       setIsMoving(false);
     });
-  };
-
-  const handleThinkGame = async () => {
-    const content = `
-以下に沿った飲みゲームを考えてください。
-・サイコロやトランプ等の準備物が不要なゲームを考えてください。
-・「タイトル:」「ルール:」の形式で300文字以内で記載してください。
-・以下の#メンバー、#要望に記載があれば その内容を反映してください。
-・項番をつけて具体的なルールを記載してください。
-#メンバー
-${members
-  .map((member) => `名前: ${member.name}, 性別: ${member.gender}`)
-  .join("\n")}
-#要望
-${gameRequest}
-    `;
-    const response = await thinkGame(content);
-    navigation.navigate("ThinkingGameResult", { gameResponse: response });
   };
 
   return (
@@ -210,14 +192,12 @@ ${gameRequest}
               </TouchableOpacity>
             </View>
             <View className="items-center mt-5">
-              <TouchableOpacity
-                className="bg-gray-800 rounded-lg p-2 m-2 mt-5"
-                onPress={handleThinkGame}
-              >
-                <Text className="text-white font-bold text-center">
-                  ゲームを考えて！
-                </Text>
-              </TouchableOpacity>
+              <HandleThinkGameButton
+                navigation={navigation}
+                members={members}
+                gameRequest={gameRequest}
+                buttonText="ゲームを考えて！"
+              />
             </View>
           </View>
         )}

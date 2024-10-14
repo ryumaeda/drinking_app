@@ -9,7 +9,9 @@ const thinkGame = async (content: string) => {
       messages: [{ role: "user", content }],
       temperature: 0.7,
     });
-    console.log(response.choices[0].message);
+    const messageContent = response.choices[0].message.content;
+    console.log(messageContent);
+    return messageContent;
   } catch (error) {
     console.error("Error calling OpenAI API:", error);
   }

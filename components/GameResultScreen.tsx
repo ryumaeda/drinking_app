@@ -38,11 +38,11 @@ const GameResultScreen = ({ route }: { route: any }) => {
         <Icon name="emoticon-happy" size={100} color="gray" />
       </Animated.View>
 
-      <Text className="text-xl font-bold mt-10 mb-3 mx-4">タイトル</Text>
-      <View className="p-5 bg-gray-50 rounded-lg shadow">
+      <Text className="text-xl font-bold mt-8 mb-3 mx-4">タイトル</Text>
+      <View className="p-2 bg-gray-50 rounded-lg shadow">
         <Text className="text-xl text-gray-800">{title}</Text>
       </View>
-      <Text className="text-xl font-bold mt-8 mb-3 mx-4">ルール</Text>
+      <Text className="text-xl font-bold mt-4 mb-3 mx-4">ルール</Text>
       <View className=" bg-gray-50 rounded-lg shadow pb-7 px-4">
         <Text className="text-l text-gray-800">{rules}</Text>
       </View>

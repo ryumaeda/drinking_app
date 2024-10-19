@@ -7,6 +7,17 @@
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain"
-    }
+    },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-xxxxxxxx~xxxxxxxx",
+          "iosAppId": "ca-app-pub-8376584919806803~3758806902",
+          "delay_app_measurement_init": true,
+          "user_tracking_usage_description": "許可することで、より関連性の高い広告を表示することができるようになります。"
+        }
+      ]
+    ]
   }
 }

@@ -12,6 +12,11 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HandleThinkGameButton from "./HandleThinkGameButton";
+// import {
+//   AdsConsent,
+//   AdsConsentDebugGeography,
+//   AdsConsentStatus,
+// } from "react-native-google-mobile-ads";
 
 const HomeScreen = ({ navigation, route }) => {
   const [animation] = useState(new Animated.ValueXY({ x: 145, y: 400 }));
@@ -22,6 +27,33 @@ const HomeScreen = ({ navigation, route }) => {
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberGender, setNewMemberGender] = useState("");
   const [gameRequest, setGameRequest] = useState("");
+  //   const [nonPersonalizedOnly, setNonPersonalizedOnly] = useState(true);
+
+  //   // ATTとGDPRの同意状態を取得
+  //   useEffect(() => {
+  //     AdsConsent.requestInfoUpdate({
+  //       debugGeography: AdsConsentDebugGeography.EEA,
+  //       // testDeviceIdentifiers: ["TEST-DEVICE-HASHED-ID"], // 実機でテストする場合はハッシュIDを指定
+  //     }).then(async (consentInfo) => {
+  //       let status = consentInfo.status;
+  //       if (
+  //         consentInfo.isConsentFormAvailable &&
+  //         status === AdsConsentStatus.REQUIRED
+  //       ) {
+  //         // 同意状態が必要な場合はダイアログを表示する
+  //         const result = await AdsConsent.showForm();
+  //         status = result.status;
+  //       }
+
+  //       if (
+  //         consentInfo.status === AdsConsentStatus.OBTAINED ||
+  //         status === AdsConsentStatus.OBTAINED
+  //       ) {
+  //         // 同意が取得できた場合はNonPersonalizedOnlyをfalseにする(トラッキング取得する)
+  //         setNonPersonalizedOnly(false);
+  //       }
+  //     });
+  //   }, []);
 
   useEffect(() => {
     if (route.params) {

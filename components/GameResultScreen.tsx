@@ -7,17 +7,33 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import thinkGame from "../lib/thinkGame";
 import HandleThinkGameButton from "./HandleThinkGameButton";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+// ナビゲーションの型定義を追加
+type RootStackParamList = {
+  ThinkingGame: {
+    thinkFlag: boolean;
+    addFlag: boolean;
+    isMoving: boolean;
+  };
+  ThinkingGameResult: {
+    gameResponse: string;
+    members: any[];
+    gameRequest: string;
+  };
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const GameResultScreen = ({ route }: { route: any }) => {
   const { gameResponse, members, gameRequest } = route.params;
   const [temp_title, rules] = gameResponse.split(/ルール[:：]/);
   const title = temp_title.replace(/タイトル[:：]/, "").replace(/\n/g, "");
   const [animation] = useState(new Animated.ValueXY({ x: 30, y: 700 }));
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const handleBackPress = () => {
     navigation.navigate("ThinkingGame", {
@@ -35,7 +51,7 @@ const GameResultScreen = ({ route }: { route: any }) => {
           { transform: animation.getTranslateTransform() },
         ]}
       >
-        <Icon name="emoticon-happy" size={100} color="gray" />
+        <MaterialCommunityIcons name="emoticon-happy" size={100} color="gray" />
       </Animated.View>
 
       <Text className="text-xl font-bold mt-8 mb-3 mx-4">タイトル</Text>

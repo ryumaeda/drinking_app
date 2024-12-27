@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import { TouchableOpacity, Text, View, ActivityIndicator } from "react-native";
 import thinkGame from "../lib/thinkGame";
 
+interface HandleThinkGameButtonProps {
+  navigation: any;
+  members: {
+    name: string;
+    gender: string;
+  }[];
+  gameRequest: string;
+  buttonText: string;
+}
+
 const HandleThinkGameButton = ({
   navigation,
   members,
   gameRequest,
   buttonText,
-}) => {
+}: HandleThinkGameButtonProps) => {
   const [loading, setLoading] = useState(false);
 
   const handleThinkGame = async () => {

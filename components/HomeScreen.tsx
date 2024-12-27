@@ -10,20 +10,20 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HandleThinkGameButton from "./HandleThinkGameButton";
-// import {
-//   AdsConsent,
-//   AdsConsentDebugGeography,
-//   AdsConsentStatus,
-// } from "react-native-google-mobile-ads";
 
-const HomeScreen = ({ navigation, route }) => {
+interface Member {
+  name: string;
+  gender: string;
+}
+
+const HomeScreen = ({ navigation, route }: { navigation: any; route: any }) => {
   const [animation] = useState(new Animated.ValueXY({ x: 145, y: 400 }));
   const [thinkFlag, setthinkFlag] = useState(false);
   const [addFlag, setaddFlag] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState<Member[]>([]);
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberGender, setNewMemberGender] = useState("");
   const [gameRequest, setGameRequest] = useState("");
@@ -127,7 +127,11 @@ const HomeScreen = ({ navigation, route }) => {
             { transform: animation.getTranslateTransform() },
           ]}
         >
-          <Icon name="emoticon-happy" size={100} color="gray" />
+          <MaterialCommunityIcons
+            name="emoticon-happy"
+            size={100}
+            color="gray"
+          />
         </Animated.View>
 
         {/* 初期画面*/}
